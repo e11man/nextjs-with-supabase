@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model conference_speakers {
+  conference_id String
+  speaker_id    String
+  conferences   conferences @relation(fields: [conference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  speakers      speakers    @relation(fields: [speaker_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([conference_id, speaker_id])
+}
+
+model conferences {
+  id                  String                @id
+  name                String
+  description         String
+  date                String
+  location            String
+  price               Int
+  category            String
+  image_url           String?
+  max_attendees       Int
+  current_attendees   Int
+  is_featured         Boolean
+  status              String
+  conference_speakers conference_speakers[]
+}
+
+model speakers {
+  id                  String                @id
+  name                String
+  title               String
+  company             String
+  bio                 String
+  avatar_url          String?
+  conference_speakers conference_speakers[]
+}
+// above is for another porject i did on a similar assesment i just didnt want to pay for another supabase db
+
+
+// 1. The Employee Model (Who is being onboarded)
+model Employee {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  department   String?
+  onboarded    Boolean   @default(false)
+  
+  // Relationship to Tasks
+  tasks        Task[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// 2. The Task Model (What they need to do)
+model Task {
+  id           String    @id @default(cuid())
+  title        String
+  description  String?
+  isComplete   Boolean   @default(false)
+  
+  // Foreign Key to the Employee
+  employeeId   String 
+  employee     Employee  @relation(fields: [employeeId], references: [id])
+  
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
