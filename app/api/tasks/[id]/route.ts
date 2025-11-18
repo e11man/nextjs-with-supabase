@@ -3,11 +3,12 @@ import { updateTask, deleteTask } from '@/lib/db/tasks';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
-    const task = await updateTask(params.id, body);
+    const task = await updateTask(id, body);
     return NextResponse.json(task);
   } catch (error) {
     console.error('Error updating task:', error);
@@ -20,10 +21,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await deleteTask(params.id);
+    const { id } = await params;
+    await deleteTask(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting task:', error);

@@ -3,10 +3,11 @@ import { getEmployeeById, updateEmployee, deleteEmployee } from '@/lib/db/employ
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const employee = await getEmployeeById(params.id);
+    const { id } = await params;
+    const employee = await getEmployeeById(id);
     
     if (!employee) {
       return NextResponse.json(
@@ -27,11 +28,12 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
-    const employee = await updateEmployee(params.id, body);
+    const employee = await updateEmployee(id, body);
     return NextResponse.json(employee);
   } catch (error) {
     console.error('Error updating employee:', error);
@@ -44,10 +46,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await deleteEmployee(params.id);
+    const { id } = await params;
+    await deleteEmployee(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting employee:', error);
