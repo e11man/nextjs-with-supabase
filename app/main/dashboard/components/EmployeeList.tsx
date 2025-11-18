@@ -1,5 +1,6 @@
 import { getAllEmployeesWithTasks, EmployeeWithTasks } from '@/lib/db/employees';
 import { TaskItem } from './TaskItem';
+import { Progress } from '@/components/ui/progress';
 
 async function getEmployees() {
   try {
@@ -40,7 +41,9 @@ export async function EmployeeList({ query }: { query: string }) {
 }
 
 function EmployeeCard({ employee }: { employee: EmployeeWithTasks }) {
-  const incompleteTasks = employee.tasks.filter(t => !t.isComplete).length;
+  const completedTasks = employee.tasks.filter(t => t.isComplete).length;
+  const totalTasks = employee.tasks.length;
+  const percentage = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
   
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-gray-50">
@@ -48,13 +51,19 @@ function EmployeeCard({ employee }: { employee: EmployeeWithTasks }) {
       <p className="text-sm text-gray-600">Department: {employee.department}</p>
       <p className="text-sm text-gray-600">Email: {employee.email}</p>
       
-      <h3 className="text-md font-medium mt-3 mb-2">
-        Pending Tasks: <span className={incompleteTasks > 0 ? "text-red-600" : "text-green-600"}>
-          {incompleteTasks}
-        </span>
-      </h3>
+      <div className="mt-3 mb-2">
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-sm font-medium text-gray-700">
+            Progress: {completedTasks}/{totalTasks}
+          </span>
+          <span className="text-sm font-medium text-gray-700">
+            {Math.round(percentage)}%
+          </span>
+        </div>
+        <Progress value={completedTasks} max={totalTasks} />
+      </div>
       
-      <ul className="space-y-1">
+      <ul className="space-y-1 mt-3">
         {employee.tasks.map(task => (
           <TaskItem key={task.id} task={task} />
         ))}

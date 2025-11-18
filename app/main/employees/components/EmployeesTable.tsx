@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Plus, ListPlus, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import { AddTaskModal } from './AddTaskModal';
 import { TaskList } from './TaskList';
 import { AddEmployeeModal } from './AddEmployeeModal';
@@ -102,9 +103,12 @@ export function EmployeesTable({ employees }: { employees: Employee[] }) {
                         {employee.onboarded ? 'Onboarded' : 'In Progress'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {completedTasks}/{totalTasks}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2 min-w-[120px]">
+                        <Progress value={completedTasks} max={totalTasks} className="flex-1" />
+                        <span className="text-xs text-gray-600 whitespace-nowrap">
+                          {completedTasks}/{totalTasks}
+                        </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
