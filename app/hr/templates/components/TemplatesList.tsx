@@ -91,7 +91,6 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
       <div className="mb-6">
         <Button
           onClick={() => setShowCreateModal(true)}
-          variant="secondary"
         >
           <Plus className="w-4 h-4 mr-2" />
           Create New Template

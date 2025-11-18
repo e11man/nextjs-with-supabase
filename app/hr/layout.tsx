@@ -14,7 +14,10 @@ export default function MainLayout({
         <Sidebar className="bg-white border-r border-gray-200">
           <SidebarHeader className="bg-white border-b border-gray-200">
           <div className="px-4 py-2">
-              <h2 className="text-lg font-semibold text-gray-900">HR Onboarding</h2>
+              <Link href="/">
+                <h2 className="text-lg font-semibold text-gray-900">HR Onboarding</h2>
+              </Link>
+              
           </div>
         </SidebarHeader>
           <SidebarContent className="bg-white">
@@ -24,7 +27,7 @@ export default function MainLayout({
               <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    <Link href="/main/dashboard">
+                    <Link href="/hr/dashboard">
                       <Home className="mr-2 h-4 w-4" />
                       <span>Dashboard</span>
                     </Link>
@@ -32,7 +35,7 @@ export default function MainLayout({
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    <Link href="/main/employees">
+                    <Link href="/hr/employees">
                       <Users className="mr-2 h-4 w-4" />
                       <span>Employees</span>
                     </Link>
@@ -40,7 +43,7 @@ export default function MainLayout({
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                    <Link href="/main/templates">
+                    <Link href="/hr/templates">
                       <FileText className="mr-2 h-4 w-4" />
                       <span>Templates</span>
                     </Link>

@@ -12,7 +12,6 @@ export function AIOverviewButton() {
     <>
       <Button 
         onClick={() => setShowModal(true)}
-        variant="secondary"
       >
         <Sparkles className="w-4 h-4 mr-2" />
         Generate AI Overview
