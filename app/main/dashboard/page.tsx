@@ -3,6 +3,8 @@ import { AIOverviewButton } from './components/AIOverviewButton';
 import { EmployeeList } from './components/EmployeeList';
 import { SearchBar } from '../components/SearchBar';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ q?: string }> | { q?: string } }) {
   const params = await Promise.resolve(searchParams);
   const query = params.q || '';
