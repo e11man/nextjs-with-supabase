@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Plus, Settings, UserPlus, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { CreateTemplateModal } from './CreateTemplateModal';
 import { AddTemplateTaskModal } from './AddTemplateTaskModal';
 import { AssignTemplateModal } from './AssignTemplateModal';
@@ -87,12 +89,13 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
   return (
     <>
       <div className="mb-6">
-        <button
+        <Button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium"
+          variant="secondary"
         >
-          + Create New Template
-        </button>
+          <Plus className="w-4 h-4 mr-2" />
+          Create New Template
+        </Button>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -100,8 +103,9 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
           <div key={template.id} className="border rounded-lg p-6 bg-white shadow-sm relative">
             {template.isDefault && (
               <div className="absolute top-3 right-3">
-                <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">
-                  ⚙️ AUTO-ASSIGN
+                <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded flex items-center gap-1">
+                  <Settings className="w-3 h-3" />
+                  AUTO-ASSIGN
                 </span>
               </div>
             )}
@@ -119,12 +123,15 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
                 <h4 className="text-sm font-medium text-gray-700">
                   Tasks ({template.tasks.length})
                 </h4>
-                <button
+                <Button
                   onClick={() => setSelectedTemplateForTask(template.id)}
-                  className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                  variant="outline"
+                  size="sm"
+                  className="h-7 text-xs"
                 >
-                  + Add Task
-                </button>
+                  <Plus className="w-3 h-3 mr-1" />
+                  Add Task
+                </Button>
               </div>
               
               {template.tasks.length === 0 ? (
@@ -134,12 +141,14 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
                   {template.tasks.map((task) => (
                     <li key={task.id} className="flex items-start justify-between text-sm">
                       <span className="text-gray-800">{task.title}</span>
-                      <button
+                      <Button
                         onClick={() => handleDeleteTask(task.id)}
-                        className="text-xs text-red-600 hover:text-red-800 ml-2"
+                        variant="destructive"
+                        size="sm"
+                        className="h-6 text-xs ml-2"
                       >
-                        Delete
-                      </button>
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
                     </li>
                   ))}
                 </ul>
@@ -148,26 +157,33 @@ export function TemplatesList({ templates: initialTemplates }: { templates: Temp
 
             <div className="space-y-2 pt-4 border-t">
               {!template.isDefault && (
-                <button
+                <Button
                   onClick={() => handleSetDefault(template.id)}
-                  className="w-full px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm font-medium"
+                  className="w-full"
+                  variant="secondary"
+                  size="sm"
                 >
-                  ⚙️ Set as Auto-Assign Template
-                </button>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Set as Auto-Assign Template
+                </Button>
               )}
               <div className="flex gap-2">
-                <button
+                <Button
                   onClick={() => setSelectedTemplateForAssign(template)}
-                  className="flex-1 px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm font-medium"
+                  className="flex-1"
+                  variant="secondary"
+                  size="sm"
                 >
+                  <UserPlus className="w-4 h-4 mr-2" />
                   Assign to Employee
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleDeleteTemplate(template.id)}
-                  className="px-3 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200 text-sm"
+                  variant="destructive"
+                  size="sm"
                 >
-                  Delete
-                </button>
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           </div>

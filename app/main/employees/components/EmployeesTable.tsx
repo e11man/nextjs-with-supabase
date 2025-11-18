@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Plus, ListPlus, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { AddTaskModal } from './AddTaskModal';
 import { TaskList } from './TaskList';
 import { AddEmployeeModal } from './AddEmployeeModal';
@@ -37,12 +39,12 @@ export function EmployeesTable({ employees }: { employees: Employee[] }) {
   return (
     <>
       <div className="mb-6">
-        <button
+        <Button
           onClick={() => setShowAddEmployeeModal(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium"
         >
-          + Add New Employee
-        </button>
+          <Plus className="w-4 h-4 mr-2" />
+          Add New Employee
+        </Button>
       </div>
 
       <div className="overflow-x-auto bg-white rounded-lg shadow">
@@ -106,18 +108,33 @@ export function EmployeesTable({ employees }: { employees: Employee[] }) {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => openTaskModal(employee.id)}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
-                      >
-                        Add Task
-                      </button>
-                      <button 
-                        onClick={() => toggleTasksView(employee.id)}
-                        className="text-indigo-600 hover:text-indigo-900"
-                      >
-                        {isExpanded ? 'Hide Tasks' : 'View Tasks'}
-                      </button>
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => openTaskModal(employee.id)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <ListPlus className="w-4 h-4 mr-1" />
+                          Add Task
+                        </Button>
+                        <Button 
+                          onClick={() => toggleTasksView(employee.id)}
+                          variant="ghost"
+                          size="sm"
+                        >
+                          {isExpanded ? (
+                            <>
+                              <ChevronUp className="w-4 h-4 mr-1" />
+                              Hide Tasks
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4 mr-1" />
+                              View Tasks
+                            </>
+                          )}
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                   {isExpanded && (

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { X, RotateCw, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type AIOverviewModalProps = {
   onClose: () => void;
@@ -44,14 +46,16 @@ export function AIOverviewModal({ onClose }: AIOverviewModalProps) {
       <div className="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            🤖 AI Onboarding Overview
+            <Sparkles className="w-6 h-6" />
+            AI Onboarding Overview
           </h2>
-          <button
+          <Button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
+            variant="ghost"
+            size="icon"
           >
-            ✕
-          </button>
+            <X className="w-5 h-5" />
+          </Button>
         </div>
 
         {isLoading && (
@@ -64,12 +68,13 @@ export function AIOverviewModal({ onClose }: AIOverviewModalProps) {
         {error && (
           <div className="p-4 bg-red-50 text-red-700 rounded-md mb-4">
             {error}
-            <button
+            <Button
               onClick={generateOverview}
-              className="ml-4 text-red-800 underline hover:no-underline"
+              variant="link"
+              className="ml-4 text-red-800"
             >
               Try Again
-            </button>
+            </Button>
           </div>
         )}
 
@@ -82,18 +87,19 @@ export function AIOverviewModal({ onClose }: AIOverviewModalProps) {
             </div>
             
             <div className="mt-6 flex justify-between items-center">
-              <button
+              <Button
                 onClick={generateOverview}
-                className="px-4 py-2 bg-purple-100 text-purple-700 rounded-md hover:bg-purple-200 text-sm font-medium"
+                variant="secondary"
               >
-                🔄 Regenerate
-              </button>
-              <button
+                <RotateCw className="w-4 h-4 mr-2" />
+                Regenerate
+              </Button>
+              <Button
                 onClick={onClose}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium"
+                variant="outline"
               >
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         )}

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Pencil, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { EditTaskModal } from './EditTaskModal';
 
 type Task = {
@@ -77,20 +79,25 @@ export function TaskItem({ task }: { task: Task }) {
           {task.title}
         </span>
         <div className="flex gap-2">
-          <button
+          <Button
             onClick={() => setIsEditModalOpen(true)}
             disabled={isDeleting}
-            className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 disabled:opacity-50"
+            variant="outline"
+            size="sm"
+            className="h-7 text-xs"
           >
+            <Pencil className="w-3 h-3 mr-1" />
             Edit
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleDelete}
             disabled={isDeleting}
-            className="text-xs px-2 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200 disabled:opacity-50"
+            variant="destructive"
+            size="sm"
+            className="h-7 text-xs"
           >
-            {isDeleting ? 'Deleting...' : 'Delete'}
-          </button>
+            <Trash2 className="w-3 h-3" />
+          </Button>
         </div>
       </li>
 

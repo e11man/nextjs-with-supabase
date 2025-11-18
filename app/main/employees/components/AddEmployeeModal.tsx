@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { X, Info } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type AddEmployeeModalProps = {
   onClose: () => void;
@@ -54,12 +56,13 @@ export function AddEmployeeModal({ onClose }: AddEmployeeModalProps) {
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-900">Add New Employee</h2>
-          <button
+          <Button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
+            variant="ghost"
+            size="icon"
           >
-            ✕
-          </button>
+            <X className="w-5 h-5" />
+          </Button>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -110,28 +113,29 @@ export function AddEmployeeModal({ onClose }: AddEmployeeModalProps) {
             </div>
           )}
 
-          <div className="bg-blue-50 p-3 rounded-md mb-4">
+          <div className="bg-blue-50 p-3 rounded-md mb-4 flex gap-2">
+            <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-blue-800">
-              💡 If you have a default template set, tasks will be automatically assigned to this employee.
+              If you have a default template set, tasks will be automatically assigned to this employee.
             </p>
           </div>
 
           <div className="flex justify-end gap-3">
-            <button
+            <Button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 font-medium"
+              variant="outline"
               disabled={isSubmitting}
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-blue-400 font-medium"
+              variant="secondary"
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Creating...' : 'Add Employee'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

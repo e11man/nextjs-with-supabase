@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { AIOverviewModal } from './AIOverviewModal';
 
 export function AIOverviewButton() {
@@ -8,12 +10,13 @@ export function AIOverviewButton() {
 
   return (
     <>
-      <button 
+      <Button 
         onClick={() => setShowModal(true)}
-        className="bg-purple-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-purple-700 font-medium flex items-center gap-2"
+        variant="secondary"
       >
-        🤖 Generate AI Overview
-      </button>
+        <Sparkles className="w-4 h-4 mr-2" />
+        Generate AI Overview
+      </Button>
 
       {showModal && (
         <AIOverviewModal onClose={() => setShowModal(false)} />
