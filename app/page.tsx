@@ -18,6 +18,12 @@ export default function Home() {
             <div className="flex gap-5 items-center font-semibold">
               <Link href={"/"}>Next.js Supabase Starter</Link>
               <div className="flex items-center gap-2">
+                <Link 
+                  href={"/main"} 
+                  className="px-4 py-2 bg-foreground text-background rounded-md hover:bg-foreground/90 transition-colors"
+                >
+                  HR Onboarding →
+                </Link>
                 <DeployButton />
               </div>
             </div>
