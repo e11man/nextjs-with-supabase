@@ -5,6 +5,8 @@ import { SearchBar } from '../components/SearchBar';
 
 export const dynamic = 'force-dynamic';
 
+type TemplateWithTasks = Awaited<ReturnType<typeof getAllTemplatesWithTasks>>[number];
+
 async function getTemplates() {
   try {
     const templates = await getAllTemplatesWithTasks();
@@ -20,7 +22,7 @@ async function TemplatesContent({ query }: { query: string }) {
   
   // Server-side filtering
   const templates = query
-    ? allTemplates.filter((template) => 
+    ? allTemplates.filter((template: TemplateWithTasks) => 
         template.name.toLowerCase().includes(query.toLowerCase()) ||
         template.description?.toLowerCase().includes(query.toLowerCase()) ||
         template.tasks.some((task) => task.title.toLowerCase().includes(query.toLowerCase()))
