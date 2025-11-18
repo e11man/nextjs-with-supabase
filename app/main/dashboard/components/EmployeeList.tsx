@@ -11,13 +11,25 @@ async function getEmployees() {
   }
 }
 
-export async function EmployeeList() {
-  const employees = await getEmployees();
+export async function EmployeeList({ query }: { query: string }) {
+  const allEmployees = await getEmployees();
+  
+  // Server-side filtering
+  const employees = query
+    ? allEmployees.filter(emp => 
+        emp.name.toLowerCase().includes(query.toLowerCase()) ||
+        emp.email.toLowerCase().includes(query.toLowerCase()) ||
+        emp.department?.toLowerCase().includes(query.toLowerCase()) ||
+        emp.tasks.some(task => task.title.toLowerCase().includes(query.toLowerCase()))
+      )
+    : allEmployees;
 
   return (
     <div className="space-y-8">
       {employees.length === 0 ? (
-        <p className="text-gray-500">No employees have been onboarded yet.</p>
+        <p className="text-gray-500">
+          {query ? `No employees found matching "${query}"` : 'No employees have been onboarded yet.'}
+        </p>
       ) : (
         employees.map((employee) => (
           <EmployeeCard key={employee.id} employee={employee} />

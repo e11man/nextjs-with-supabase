@@ -1,14 +1,19 @@
 import { Suspense } from 'react';
 import { AIOverviewButton } from './components/AIOverviewButton';
 import { EmployeeList } from './components/EmployeeList';
+import { SearchBar } from '../components/SearchBar';
 
-export default function DashboardPage() {
+export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ q?: string }> | { q?: string } }) {
+  const params = await Promise.resolve(searchParams);
+  const query = params.q || '';
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">HR Onboarding Dashboard</h1>
       
-      <div className="mb-8">
+      <div className="flex gap-4 items-center mb-8">
         <AIOverviewButton />
+        <SearchBar placeholder="Search employees..." />
       </div>
 
       <Suspense fallback={
@@ -20,7 +25,7 @@ export default function DashboardPage() {
           </div>
         </div>
       }>
-        <EmployeeList />
+        <EmployeeList query={query} />
       </Suspense>
     </div>
   );
