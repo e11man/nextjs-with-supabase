@@ -1,109 +1,308 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# HR Onboarding Management System
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+A modern, full-stack HR onboarding platform built with Next.js 15 that streamlines employee onboarding through task management, reusable templates, and AI-powered insights.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## Overview
 
-## Features
+This application helps HR teams efficiently onboard new employees by:
+- Managing and tracking onboarding tasks assigned to employees
+- Creating reusable task templates for common onboarding scenarios
+- Automatically assigning default templates to new hires
+- Generating AI-powered insights on onboarding progress using Google Gemini
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Key Features
 
-## Demo
+### Employee Management
+- Create, view, update, and delete employee records
+- Track employee information (name, email, department)
+- Monitor onboarding completion status
+- Visual progress indicators for task completion
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+### Task Management
+- Assign tasks to individual employees
+- Mark tasks as complete with checkbox interface
+- Edit task details (title and description)
+- Real-time task completion tracking
 
-## Deploy to Vercel
+### Template System
+- Create reusable onboarding task templates
+- Set a default template that auto-assigns to new employees
+- Manually assign specific templates to employees
+- Add/remove tasks from templates
 
-Vercel deployment will guide you through creating a Supabase account and project.
+### AI-Powered Insights
+- Generate intelligent overviews of onboarding progress using Google Gemini 2.0 Flash
+- Receive actionable recommendations for pending tasks
+- Analyze completion rates and identify bottlenecks
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### Search & Filter
+- Server-side search across employees, departments, and tasks
+- URL-based search queries (shareable links)
+- Real-time filtering with loading states
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+## Tech Stack
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS
+- **Components**: shadcn/ui + Radix UI primitives
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+### Backend
+- **Runtime**: Node.js (Next.js API Routes)
+- **ORM**: Prisma Client
+- **Database**: PostgreSQL (hosted on Supabase)
+- **Authentication**: Supabase Auth (configured)
+- **AI**: Google Gemini 2.0 Flash
 
-## Clone and run locally
+## Database Schema
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+The application uses a PostgreSQL database with the following models:
 
-2. Create a Next.js app using the Supabase Starter template npx command
+- **Employee**: Stores employee information and onboarding status
+- **Task**: Individual tasks assigned to employees
+- **Template**: Reusable task templates
+- **TemplateTask**: Tasks within templates
 
+All relationships use cascade deletion for data integrity.
+
+## Getting Started
+
+### Prerequisites
+
+Before running this application, you'll need:
+- Node.js 18+ installed
+- A Supabase account with a PostgreSQL database
+- (Optional) Google Gemini API key for AI features
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+
+# Database URLs
+DATABASE_URL=postgresql://user:password@host:port/database?pgbouncer=true
+DIRECT_URL=postgresql://user:password@host:port/database
+
+# AI Configuration (Optional - required for AI Overview feature)
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+**Finding your Supabase credentials:**
+1. Go to your [Supabase project dashboard](https://app.supabase.com)
+2. Navigate to Project Settings > API
+3. Copy the Project URL and anon/public key
+4. Navigate to Project Settings > Database
+5. Copy the connection string for DATABASE_URL and DIRECT_URL
+
+**Getting a Gemini API key:**
+1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
+2. Sign in with your Google account
+3. Create a new API key
+
+### Installation
+
+1. **Clone the repository**
    ```bash
-   npx create-next-app --example with-supabase with-supabase-app
+   git clone <repository-url>
+   cd nextjs-with-supabase
    ```
 
+2. **Install dependencies**
    ```bash
-   yarn create next-app --example with-supabase with-supabase-app
+   npm install
    ```
 
+3. **Generate Prisma client**
    ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
+   npx prisma generate
    ```
 
-3. Use `cd` to change into the app's directory
-
+4. **Push database schema to Supabase**
    ```bash
-   cd with-supabase-app
+   npx prisma db push
    ```
 
-4. Rename `.env.example` to `.env.local` and update the following:
+5. **Seed the database (optional)**
+   ```bash
+   npm run db:seed
+   ```
+   This creates sample employees and tasks for testing.
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
-
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
-
-5. You can now run the Next.js local development server:
-
+6. **Run the development server**
    ```bash
    npm run dev
    ```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+7. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+## Project Structure
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+```
+nextjs-with-supabase/
+├── app/
+│   ├── api/                    # API routes for CRUD operations
+│   │   ├── employees/          # Employee endpoints
+│   │   ├── tasks/              # Task endpoints
+│   │   ├── templates/          # Template endpoints
+│   │   └── ai-overview/        # AI insights endpoint
+│   ├── hr/                     # Main application pages
+│   │   ├── dashboard/          # Dashboard with employee list
+│   │   ├── employees/          # Employee management
+│   │   ├── templates/          # Template management
+│   │   └── components/         # Shared components
+│   └── auth/                   # Authentication pages (configured)
+├── components/
+│   ├── ui/                     # shadcn/ui components
+│   └── blocks/                 # Custom blocks (sidebar, etc.)
+├── lib/
+│   ├── db/                     # Prisma query functions
+│   │   ├── employees.ts        # Employee operations
+│   │   ├── tasks.ts            # Task operations
+│   │   └── templates.ts        # Template operations
+│   ├── supabase/               # Supabase client setup
+│   ├── prisma.ts               # Prisma client singleton
+│   └── utils.ts                # Utility functions
+├── prisma/
+│   ├── schema.prisma           # Database schema
+│   └── seed.ts                 # Database seeding script
+└── public/                     # Static assets
+```
 
-## Feedback and issues
+## Available Scripts
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm start          # Start production server
+npm run lint       # Run ESLint
+npm run db:seed    # Seed database with sample data
+```
 
-## More Supabase examples
+## Usage Guide
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+### Creating an Employee
+1. Navigate to the Employees page
+2. Click "Add Employee"
+3. Fill in name, email, and department
+4. If a default template exists, tasks will be automatically assigned
+
+### Managing Templates
+1. Go to the Templates page
+2. Create a new template with a name and description
+3. Add tasks to the template
+4. Set as default for auto-assignment to new employees
+5. Manually assign templates to existing employees
+
+### Tracking Progress
+1. View the Dashboard for an overview of all employees
+2. Check task completion progress bars
+3. Click checkboxes to mark tasks as complete
+4. Use the search bar to filter employees or tasks
+
+### AI Insights
+1. Click "Generate AI Overview" on the Dashboard
+2. Wait for the AI to analyze all employee data
+3. Review personalized recommendations
+4. Regenerate for updated insights
+
+## Deployment
+
+### Vercel Deployment (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Add environment variables in the Vercel dashboard
+4. Deploy!
+
+Vercel will automatically:
+- Run `prisma generate` during build
+- Deploy your Next.js application
+- Set up preview deployments for branches
+
+### Build Configuration
+
+The build command is already configured in `package.json`:
+```bash
+prisma generate && next build
+```
+
+## Security Notes
+
+- Supabase authentication is configured but not actively enforced
+- API routes are currently unprotected
+- For production use, implement route protection and authentication
+- Never commit `.env.local` to version control
+
+## Contributing
+
+This is a production-ready template that can be extended with:
+- User authentication and authorization
+- Email notifications for task assignments
+- Real-time updates with WebSockets
+- Analytics dashboard for onboarding metrics
+- File upload capabilities for documents
+- Role-based access control
+
+## Documentation
+
+For detailed technical documentation, including:
+- Complete API reference
+- Database schema details
+- Component architecture
+- Data flow diagrams
+
+See [COMPREHENSIVE_APP_DOCUMENTATION.md](./COMPREHENSIVE_APP_DOCUMENTATION.md)
+
+## Tech Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [shadcn/ui Components](https://ui.shadcn.com)
+- [Google Gemini AI](https://ai.google.dev/)
+
+## icense
+
+This project is open source and available for use and modification.
+
+## Troubleshooting
+
+### Common Issues
+
+**"Error: Prisma Client not found"**
+```bash
+npx prisma generate
+```
+
+**"Database connection failed"**
+- Verify your DATABASE_URL and DIRECT_URL in `.env.local`
+- Ensure your Supabase database is running
+- Check if your IP is whitelisted in Supabase
+
+**"AI Overview not working"**
+- Verify GEMINI_API_KEY is set correctly
+- Check if your API key is valid and has not expired
+- AI features are optional and the app works without them
+
+**Port 3000 already in use**
+```bash
+npm run dev -- -p 3001
+```
+
+## Support
+
+For issues, questions, or contributions, please open an issue on the repository.
+
+---
+
+Built with Next.js, Prisma, Supabase, and Google Gemini AI
